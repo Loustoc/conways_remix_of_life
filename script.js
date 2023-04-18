@@ -1,7 +1,7 @@
 //https://playgameoflife.com/
-const NO_COLONNES = 40;
-const NO_LIGNES = 30;
-const NB_ALIVE_INIT = 400;
+let NO_COLONNES = 40;
+let NO_LIGNES = 30;
+let NB_ALIVE_INIT = 400;
 let random;
 let top_ok = false;
 let offset_top_ok = false;
@@ -12,7 +12,7 @@ let offset_bottom_ok = false;
 let bottom_ok = false;
 let right_ok = false;
 let left_ok = false;
-const NB_CELL = NO_COLONNES * NO_LIGNES;
+let NB_CELL = NO_COLONNES * NO_LIGNES;
 const container = document.querySelector(".container");
 // const TABX = [];
 // const TABY = [];
@@ -25,9 +25,16 @@ let ALIVE = [];
 let SURROUNDING_CELLS = [];
 let alive_check = false;
 let dead_check = false;
+const INPUT_COLONNES = document.getElementById("nbcolonnes");
+const INPUT_LIGNES = document.getElementById("nblignes");
+const INPUT_NBCELLS = document.getElementById("nbcellsinit");
+INPUT_COLONNES.value=NO_COLONNES;
+INPUT_NBCELLS.value=NB_ALIVE_INIT;
+INPUT_LIGNES.value=NO_LIGNES;
 
 let cellules_array = [];
-// TODO : DEAD AND ALIVE SIMULTANE !!!!
+
+
 // for (i = 0; i < cellules_array.length; i++) {
 //   if (STATE[i] == 1) {
 //     cellules_array[i].classList.add("alive");
@@ -64,20 +71,45 @@ const cellsInArray = () => {
 };
 
 const init = () => {
+  container.innerHTML="";
+
+  console.log("test");
+  console.log(NO_LIGNES);
+  console.log(NO_COLONNES);
+
   for (k = 1; k < NO_LIGNES + 1; k++) {
     let ligne = document.createElement("div");
     container.appendChild(ligne);
     ligne.classList.add("ligne");
+  // console.log("lignes "+k);
+
 
     for (i = 1; i < NO_COLONNES + 1; i++) {
+  // console.log("colonnes "+i);
+
       let cellule_col = document.createElement("div");
       ligne.appendChild(cellule_col);
       cellule_col.classList.add("cellule");
-      // STATE.push(0);
     }
   }
   cellsInArray();
 };
+
+const redefineValues = () => {
+  if (INPUT_COLONNES!=0 && INPUT_LIGNES!=0 && INPUT_NBCELLS!=0)
+  {
+    NO_COLONNES=(INPUT_COLONNES.valueAsNumber);
+    NO_LIGNES=(INPUT_LIGNES.valueAsNumber);
+    NB_ALIVE_INIT=(INPUT_NBCELLS.valueAsNumber);
+    console.log(NO_LIGNES);
+    console.log(NO_COLONNES);
+    console.log(NB_ALIVE_INIT);
+
+    init();
+
+  }
+  
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
