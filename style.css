@@ -1,0 +1,63 @@
+/* V1 */
+/* .cellule{
+    background-color: rgb(167, 157, 157);
+    width: 1px;
+    height: 1px;
+    border: 1px black solid;
+    display: inline-block;
+    box-sizing: border-box;
+
+}
+
+.ligne{
+    box-sizing: border-box;
+    display: flex;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+} */
+
+/* V2 */
+
+.cellule{
+    background-color: rgb(255, 255, 255);
+    border: 0.1px black solid;
+    width:  calc(600px / 40);
+    height: calc(450px / 30);
+    display: inline-block;
+    box-sizing: border-box;
+
+}
+
+.ligne{
+    width: 600px;
+    height: calc(450px / 30);
+    box-sizing: border-box;
+    display: flex;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    position: fixed;
+    transform: translate(calc(50vw - 50%),calc(50vh - 50%));
+    border: 1px black solid;
+    width: 600px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+.alive{
+    background-color: black;
+}
