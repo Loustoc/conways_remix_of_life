@@ -354,6 +354,10 @@ vitesse.forEach((vitesse) => {
       clearInterval(interval);
       DELAY = 25;
     }
+   else if (e.target.innerHTML == "1X") {
+    clearInterval(interval);
+    DELAY = 10;
+  }
     game_start();
   });
 });
