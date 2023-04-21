@@ -8,7 +8,7 @@ let offset_top_ok = false;
 let offset_left_ok = false;
 let offset_right_ok = false;
 let offset_bottom_ok = false;
-
+let interval;
 let bottom_ok = false;
 let right_ok = false;
 let left_ok = false;
@@ -16,6 +16,7 @@ let NB_CELL = NO_COLONNES * NO_LIGNES;
 const container = document.querySelector(".container");
 // const TABX = [];
 // const TABY = [];
+let game_started = false;
 let DEAD = [];
 let PREV1 = [];
 let PREV2 = [];
@@ -28,12 +29,11 @@ let dead_check = false;
 const INPUT_COLONNES = document.getElementById("nbcolonnes");
 const INPUT_LIGNES = document.getElementById("nblignes");
 const INPUT_NBCELLS = document.getElementById("nbcellsinit");
-INPUT_COLONNES.value=NO_COLONNES;
-INPUT_NBCELLS.value=NB_ALIVE_INIT;
-INPUT_LIGNES.value=NO_LIGNES;
+INPUT_COLONNES.value = NO_COLONNES;
+INPUT_NBCELLS.value = NB_ALIVE_INIT;
+INPUT_LIGNES.value = NO_LIGNES;
 
 let cellules_array = [];
-
 
 // for (i = 0; i < cellules_array.length; i++) {
 //   if (STATE[i] == 1) {
@@ -71,7 +71,7 @@ const cellsInArray = () => {
 };
 
 const init = () => {
-  container.innerHTML="";
+  container.innerHTML = "";
 
   console.log("test");
   console.log(NO_LIGNES);
@@ -81,11 +81,10 @@ const init = () => {
     let ligne = document.createElement("div");
     container.appendChild(ligne);
     ligne.classList.add("ligne");
-  // console.log("lignes "+k);
-
+    // console.log("lignes "+k);
 
     for (i = 1; i < NO_COLONNES + 1; i++) {
-  // console.log("colonnes "+i);
+      // console.log("colonnes "+i);
 
       let cellule_col = document.createElement("div");
       ligne.appendChild(cellule_col);
@@ -96,21 +95,18 @@ const init = () => {
 };
 
 const redefineValues = () => {
-  if (INPUT_COLONNES!=0 && INPUT_LIGNES!=0 && INPUT_NBCELLS!=0)
-  {
-    NO_COLONNES=(INPUT_COLONNES.valueAsNumber);
-    NO_LIGNES=(INPUT_LIGNES.valueAsNumber);
-    NB_ALIVE_INIT=(INPUT_NBCELLS.valueAsNumber);
+  if (INPUT_COLONNES != 0 && INPUT_LIGNES != 0 && INPUT_NBCELLS != 0) {
+    NO_COLONNES = INPUT_COLONNES.valueAsNumber;
+    NO_LIGNES = INPUT_LIGNES.valueAsNumber;
+    NB_ALIVE_INIT = INPUT_NBCELLS.valueAsNumber;
     NB_CELL = NO_COLONNES * NO_LIGNES;
     console.log(NO_LIGNES);
     console.log(NO_COLONNES);
     console.log(NB_ALIVE_INIT);
 
     init();
-
   }
-  
-}
+};
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -236,10 +232,8 @@ const check_surrounding_cells = () => {
 
       console.log(ALIVE[i] + " cellule reste en vie");
     }
-  SURROUNDING_CELLS.length = 0;
-
+    SURROUNDING_CELLS.length = 0;
   }
-
 
   for (i = 0; i < DEAD.length; i++) {
     console.log("check dead");
@@ -321,8 +315,7 @@ const check_surrounding_cells = () => {
       // cellules_array[DEAD[i]].classList.add("alive");
       TOADD.push(DEAD[i]);
     }
-  SURROUNDING_CELLS.length = 0;
-
+    SURROUNDING_CELLS.length = 0;
   }
 
   ALIVEPREV = ALIVE;
@@ -333,7 +326,6 @@ const check_surrounding_cells = () => {
         ALIVE.splice(i, 1);
         DEAD.push(TOREMOVE[j]);
         cellules_array[TOREMOVE[j]].classList.remove("alive");
-
       }
     }
   }
@@ -343,7 +335,6 @@ const check_surrounding_cells = () => {
         DEAD.splice(i, 1);
         ALIVE.push(TOADD[j]);
         cellules_array[TOADD[j]].classList.add("alive");
-
       }
     }
   }
@@ -352,29 +343,29 @@ const check_surrounding_cells = () => {
 
   // ALIVE;
 };
-
-const game_on = () => {
-  // console.log("game_on");
-
-  // dead_check = false;
-  // alive_check = true;
-  // setInterval(check_surrounding_alive_cells, 1000);
-  // console.log("game_on");
-  // if (ALIVE.length > 0) {
-
-  // requestAnimationFrame(game_on);
-  // }
-  check_surrounding_cells();
-  // alive_check = false;
-  // dead_check = true;
-  // setTimeout(check_surrounding_cells, 100);
-  // check_surrounding_alive_cells();
+const effacer = () => {
+  clearInterval(interval);
+  init();
 };
+const resume = () => {
+  interval = setInterval(game_on, 100);
+};
+const pause = () => {
+  clearInterval(interval);
+};
+const game_on = () => {
+  check_surrounding_cells()
+}
 const game_start = () => {
-  setInterval(game_on, 100);
+  if(!game_started){
+  interval = setInterval(game_on, 100);
+  game_started=true;
+  }
+  else{
+    resume();
+  }
 };
 init();
-// game_on();
 
 /*
 - chaque case qui a moins de 2 voisins vivants meurt

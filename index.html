@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conway's</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <!-- TODO : bug quand nb de colonnes/lignes sup à valeur par défaut ???-->
-<button onclick="randomInit()" class="random">RANDOM</button>
-<button onclick="game_start()" class="start">START</button>
-<input type="number" id="nbcolonnes" placeholder="Nombre de colonnes">
-<input type="number" id="nblignes" placeholder="Nombre de lignes">
-<input type="number" id="nbcellsinit" placeholder="Nb de cells en vie au départ" type="text">
-<button onclick="redefineValues()" id="valider">VALIDER</button>
 
-<div class="container"></div>
+    <div class="controls">
+      <img onclick="randomInit()" class="random" src="/img/random.svg">
+      <img onclick="game_start()" class="start" src="/img/play.svg">
+      <img onclick="pause()" class="pause" src="/img/pause.svg">
+      <img onclick="effacer()" class="stop" src="/img/restart.svg">
+    </div>
 
+    <input type="number" id="nbcolonnes" placeholder="Nombre de colonnes" />
+    <input type="number" id="nblignes" placeholder="Nombre de lignes" />
+    <input
+      type="number"
+      id="nbcellsinit"
+      placeholder="Nb de cells en vie au départ"
+      type="text"
+    />
+    <button onclick="redefineValues()" id="valider">VALIDER</button>
+
+    <div class="container"></div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
