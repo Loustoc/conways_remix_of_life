@@ -49,6 +49,7 @@ body{
 }
 .container{
     position: fixed;
+    top:0;
     transform: translate(calc(50vw - 50%),calc(50vh - 50%));
     border: 1px black solid;
     /* width: 600px;
