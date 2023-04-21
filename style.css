@@ -72,11 +72,16 @@ body {
   flex-direction: column;
   position: fixed;
   bottom: 30px;
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.485);
   border-radius: 20px;
   z-index: 99999999;
 }
+.buttons img {
+  max-width: 30px;
+}
 .buttons {
+  justify-content: center;
+  align-items: center;
   margin: 5px;
   display: flex;
 }
@@ -84,6 +89,6 @@ body {
   margin: 5px;
   display: flex;
 }
-.button{
-    margin: 10px;
+.button {
+  margin: 10px;
 }
