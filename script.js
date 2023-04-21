@@ -28,6 +28,7 @@ let alive_check = false;
 let dead_check = false;
 const INPUT_COLONNES = document.getElementById("nbcolonnes");
 const INPUT_LIGNES = document.getElementById("nblignes");
+const RANGE = document.getElementById("range");
 const INPUT_NBCELLS = document.getElementById("nbcellsinit");
 INPUT_COLONNES.value = NO_COLONNES;
 INPUT_NBCELLS.value = NB_ALIVE_INIT;
@@ -67,7 +68,7 @@ let cellules_array = [];
 //V2
 
 const cellsInArray = () => {
-  cellules_array = document.querySelectorAll(".cellule");
+   cellules_array = document.querySelectorAll(".cellule");
 };
 
 const init = () => {
@@ -365,6 +366,15 @@ const game_start = () => {
     resume();
   }
 };
+
+RANGE.addEventListener("input",() => {
+  console.log("input");
+ for(i=0;i<cellules_array.length;i++){
+  cellules_array[i].style.borderRadius=`${RANGE.valueAsNumber/2}%`
+}
+});
+
+
 init();
 
 /*
