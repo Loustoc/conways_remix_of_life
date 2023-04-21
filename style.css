@@ -38,7 +38,6 @@ body{
 }
 
 .ligne{
-    width: 600px;
     height: calc(450px / 30);
     box-sizing: border-box;
     display: flex;
@@ -52,8 +51,10 @@ body{
     position: fixed;
     transform: translate(calc(50vw - 50%),calc(50vh - 50%));
     border: 1px black solid;
-    width: 600px;
-    height: 450px;
+    /* width: 600px;
+    height: 450px; */
+    height: fit-content;
+    width: fit-content;
     display: flex;
     flex-direction: column;
 }
