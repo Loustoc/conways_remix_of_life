@@ -46,9 +46,10 @@ body{
 body{
     margin: 0;
     padding: 0;
+    overflow: scroll;
 }
 .container{
-    position: fixed;
+    position: absolute;
     top:0;
     transform: translate(calc(50vw - 50%),calc(50vh - 50%));
     border: 1px black solid;
@@ -62,4 +63,9 @@ body{
 
 .alive{
     background-color: black;
+}
+.controls{
+    position: fixed;
+    top: 0;
+    z-index: 99999999;
 }
