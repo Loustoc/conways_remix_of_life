@@ -2,6 +2,7 @@
 let NO_COLONNES = 40;
 let NO_LIGNES = 30;
 let NB_ALIVE_INIT = 400;
+let DELAY = 100; // milliseconds
 let random;
 let top_ok = false;
 let offset_top_ok = false;
@@ -30,45 +31,16 @@ const INPUT_COLONNES = document.getElementById("nbcolonnes");
 const INPUT_LIGNES = document.getElementById("nblignes");
 const RANGE = document.getElementById("range");
 const INPUT_NBCELLS = document.getElementById("nbcellsinit");
+const vitesse = document.querySelectorAll(".vitesse");
+
 INPUT_COLONNES.value = NO_COLONNES;
 INPUT_NBCELLS.value = NB_ALIVE_INIT;
 INPUT_LIGNES.value = NO_LIGNES;
 
 let cellules_array = [];
 
-// for (i = 0; i < cellules_array.length; i++) {
-//   if (STATE[i] == 1) {
-//     cellules_array[i].classList.add("alive");
-//     ALIVE.push(i);
-//   } else {
-//     cellules_array[i].classList.remove("alive");
-//     console.log("now dead");
-//   }
-// }
-//V1 DUMB RESPONSIVE
-// const init = () => {
-// for(k=1;k<NO_LIGNES+1;k++){
-// let ligne = document.createElement("div");
-// container.appendChild(ligne);
-// ligne.classList.add("ligne");
-// ligne.style.width="100vw";
-// ligne.style.height=`${(window.innerHeight/NO_LIGNES)}px`;
-
-//     for (i=0;i<NO_COLONNES+1;i++){
-//         let cellule_col = document.createElement("div");
-//         ligne.appendChild(cellule_col);
-//         cellule_col.classList.add("cellule");
-//         cellule_col.style.height=`${(window.innerHeight/NO_LIGNES)-2}px`;
-//         cellule_col.style.width=`${window.innerWidth/NO_COLONNES}px`
-//     }
-
-// }
-// }
-
-//V2
-
 const cellsInArray = () => {
-   cellules_array = document.querySelectorAll(".cellule");
+  cellules_array = document.querySelectorAll(".cellule");
 };
 
 const init = () => {
@@ -349,31 +321,42 @@ const effacer = () => {
   init();
 };
 const resume = () => {
-  interval = setInterval(game_on, 100);
+  interval = setInterval(game_on, DELAY);
 };
 const pause = () => {
   clearInterval(interval);
 };
 const game_on = () => {
-  check_surrounding_cells()
-}
+  check_surrounding_cells();
+};
 const game_start = () => {
-  if(!game_started){
-  interval = setInterval(game_on, 100);
-  game_started=true;
-  }
-  else{
+  if (!game_started) {
+    interval = setInterval(game_on, DELAY);
+    game_started = true;
+  } else {
     resume();
   }
 };
 
-RANGE.addEventListener("input",() => {
+RANGE.addEventListener("input", () => {
   console.log("input");
- for(i=0;i<cellules_array.length;i++){
-  cellules_array[i].style.borderRadius=`${RANGE.valueAsNumber/2}%`
-}
+  for (i = 0; i < cellules_array.length; i++) {
+    cellules_array[i].style.borderRadius = `${RANGE.valueAsNumber / 2}%`;
+  }
 });
 
+vitesse.forEach((vitesse) => {
+  vitesse.addEventListener("click", (e)=>{
+    clearInterval(interval);
+    if (e.target.innerHTML == "2X") {
+      DELAY = 50;
+    } else if (e.target.innerHTML == "4X") {
+      clearInterval(interval);
+      DELAY = 25;
+    }
+    game_start();
+  });
+});
 
 init();
 
