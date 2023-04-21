@@ -371,7 +371,7 @@ const game_on = () => {
   // check_surrounding_alive_cells();
 };
 const game_start = () => {
-  setInterval(game_on, 1000);
+  setInterval(game_on, 100);
 };
 init();
 // game_on();
