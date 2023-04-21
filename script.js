@@ -101,6 +101,7 @@ const redefineValues = () => {
     NO_COLONNES=(INPUT_COLONNES.valueAsNumber);
     NO_LIGNES=(INPUT_LIGNES.valueAsNumber);
     NB_ALIVE_INIT=(INPUT_NBCELLS.valueAsNumber);
+    NB_CELL = NO_COLONNES * NO_LIGNES;
     console.log(NO_LIGNES);
     console.log(NO_COLONNES);
     console.log(NB_ALIVE_INIT);
@@ -370,7 +371,7 @@ const game_on = () => {
   // check_surrounding_alive_cells();
 };
 const game_start = () => {
-  setInterval(game_on, 100);
+  setInterval(game_on, 1000);
 };
 init();
 // game_on();
