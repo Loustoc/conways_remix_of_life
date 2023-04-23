@@ -356,7 +356,7 @@ vitesse.forEach((vitesse) => {
     }
    else if (e.target.innerHTML == "1X") {
     clearInterval(interval);
-    DELAY = 10;
+    DELAY = 100;
   }
     game_start();
   });
