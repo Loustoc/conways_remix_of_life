@@ -10,6 +10,7 @@ let offset_left_ok = false;
 let offset_right_ok = false;
 let offset_bottom_ok = false;
 let interval;
+let mousepressed = false;
 let bottom_ok = false;
 let right_ok = false;
 let left_ok = false;
@@ -45,7 +46,8 @@ const cellsInArray = () => {
 
 const init = () => {
   container.innerHTML = "";
-
+  DEAD.length = 0;
+  ALIVE.length = 0;
   console.log("test");
   console.log(NO_LIGNES);
   console.log(NO_COLONNES);
@@ -63,7 +65,7 @@ const init = () => {
       ligne.appendChild(cellule_col);
       cellule_col.classList.add("cellule");
       cellule_col.dataset.index = i + k * NO_COLONNES;
-      DEAD.push(cellule_col.dataset.index);
+      DEAD.push(Number(cellule_col.dataset.index));
     }
   }
   cellsInArray();
@@ -341,25 +343,24 @@ const game_start = () => {
 };
 
 const handleCellClick = (e) => {
-if (e.target.classList.contains("cellule")){
-  if(e.target.classList.contains("alive")){
-    for (i = 0; i < ALIVE.length; i++) {
+  if (e.target.classList.contains("cellule")) {
+    if (e.target.classList.contains("alive")) {
+      for (i = 0; i < ALIVE.length; i++) {
         if (ALIVE[i] == e.target.dataset.index) {
           ALIVE.splice(i, 1);
-          DEAD.push( Number(e.target.dataset.index));
+          DEAD.push(Number(e.target.dataset.index));
         }
-    }
-  }
-  else{
-    for (i = 0; i < DEAD.length; i++) {
-      if (DEAD[i] == e.target.dataset.index) {
-        DEAD.splice(i, 1);
-        ALIVE.push(Number(e.target.dataset.index));
       }
+    } else {
+      for (i = 0; i < DEAD.length; i++) {
+        if (DEAD[i] == e.target.dataset.index) {
+          DEAD.splice(i, 1);
+          ALIVE.push(Number(e.target.dataset.index));
+        }
+      }
+    }
+    e.target.classList.toggle("alive");
   }
-  }
-  e.target.classList.toggle("alive");
-}
 };
 
 RANGE.addEventListener("input", () => {
@@ -389,6 +390,18 @@ init();
 
 document.addEventListener("click", (e) => {
   handleCellClick(e);
+});
+document.addEventListener("mousedown", (e) => {
+  mousepressed = true;
+});
+document.addEventListener("mouseup", (e) => {
+  mousepressed = false;
+});
+
+document.addEventListener("mouseover", (e) => {
+  if (mousepressed){
+    handleCellClick(e);
+  }
 });
 
 /*
