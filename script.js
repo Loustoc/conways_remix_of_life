@@ -50,18 +50,20 @@ const init = () => {
   console.log(NO_LIGNES);
   console.log(NO_COLONNES);
 
-  for (k = 1; k < NO_LIGNES + 1; k++) {
+  for (k = 0; k < NO_LIGNES; k++) {
     let ligne = document.createElement("div");
     container.appendChild(ligne);
     ligne.classList.add("ligne");
     // console.log("lignes "+k);
 
-    for (i = 1; i < NO_COLONNES + 1; i++) {
+    for (i = 0; i < NO_COLONNES; i++) {
       // console.log("colonnes "+i);
 
       let cellule_col = document.createElement("div");
       ligne.appendChild(cellule_col);
       cellule_col.classList.add("cellule");
+      cellule_col.dataset.index = i + k * NO_COLONNES;
+      DEAD.push(cellule_col.dataset.index);
     }
   }
   cellsInArray();
@@ -131,12 +133,12 @@ const check_surrounding_cells = () => {
 
     if ((ALIVE[i] + 1) % NO_COLONNES != 0) {
       offset_right_ok = true;
-      // console.log("offset_right_ok");
+      console.log("offset_right_ok");
 
       if (ALIVE.includes(ALIVE[i] + 1)) {
         SURROUNDING_CELLS.push(ALIVE[i] + 1);
         right_ok = true;
-        // console.log("right_ok");
+        console.log("right_ok");
       }
     }
     if (ALIVE[i] % NO_COLONNES != 0 && ALIVE[i] - 1 >= 0) {
@@ -338,6 +340,28 @@ const game_start = () => {
   }
 };
 
+const handleCellClick = (e) => {
+if (e.target.classList.contains("cellule")){
+  if(e.target.classList.contains("alive")){
+    for (i = 0; i < ALIVE.length; i++) {
+        if (ALIVE[i] == e.target.dataset.index) {
+          ALIVE.splice(i, 1);
+          DEAD.push( Number(e.target.dataset.index));
+        }
+    }
+  }
+  else{
+    for (i = 0; i < DEAD.length; i++) {
+      if (DEAD[i] == e.target.dataset.index) {
+        DEAD.splice(i, 1);
+        ALIVE.push(Number(e.target.dataset.index));
+      }
+  }
+  }
+  e.target.classList.toggle("alive");
+}
+};
+
 RANGE.addEventListener("input", () => {
   console.log("input");
   for (i = 0; i < cellules_array.length; i++) {
@@ -346,23 +370,26 @@ RANGE.addEventListener("input", () => {
 });
 
 vitesse.forEach((vitesse) => {
-  vitesse.addEventListener("click", (e)=>{
+  vitesse.addEventListener("click", (e) => {
     clearInterval(interval);
     if (e.target.innerHTML == "2X") {
       DELAY = 50;
     } else if (e.target.innerHTML == "4X") {
       clearInterval(interval);
       DELAY = 25;
+    } else if (e.target.innerHTML == "1X") {
+      clearInterval(interval);
+      DELAY = 100;
     }
-   else if (e.target.innerHTML == "1X") {
-    clearInterval(interval);
-    DELAY = 100;
-  }
     game_start();
   });
 });
 
 init();
+
+document.addEventListener("click", (e) => {
+  handleCellClick(e);
+});
 
 /*
 - chaque case qui a moins de 2 voisins vivants meurt
