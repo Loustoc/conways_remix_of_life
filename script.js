@@ -488,11 +488,11 @@ THEMES.forEach(theme =>{
     if (e.currentTarget == THEMES[0])
     {
       for (i=0;i<cellules_array.length;i++) {
-        if (cellules_array[i].classList.contains("alive_humus")){
-          cellules_array[i].classList.replace("alive_humus", "alive");
+        if (cellules_array[i].classList[1].includes("alive") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"alive"); 
         }
-        else if (cellules_array[i].classList.contains("dead_humus")){
-          cellules_array[i].classList.replace("dead_humus", "dead");
+        else if (cellules_array[i].classList[1].includes("dead") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"dead"); 
         }
       }
      theme_class_alive = "alive";
@@ -501,11 +501,11 @@ THEMES.forEach(theme =>{
     else if (e.currentTarget == THEMES[1])
     {
       for (i=0;i<cellules_array.length;i++) {
-        if (cellules_array[i].classList.contains("alive")){
-          cellules_array[i].classList.replace("alive", "alive_humus");
+        if (cellules_array[i].classList[1].includes("alive") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"alive_humus"); 
         }
-        else if (cellules_array[i].classList.contains("dead")){
-          cellules_array[i].classList.replace("dead", "dead_humus");
+        else if (cellules_array[i].classList[1].includes("dead") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"dead_humus"); 
         }
       }
      theme_class_alive = "alive_humus";
