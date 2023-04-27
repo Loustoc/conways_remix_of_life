@@ -66,6 +66,8 @@ body {
 }
 .controls {
   transform: translate(calc(50vw - 50%));
+  border: 3px  black dashed;
+  cursor : grab;
   justify-content: center;
   align-items: center;
   padding: 5px 20px;
@@ -73,7 +75,7 @@ body {
   flex-direction: column;
   position: fixed;
   bottom: 0px;
-  background-color: rgba(128, 128, 128, 0.485);
+  background-color: rgb(189, 189, 189);
   border-radius: 20px;
   z-index: 99999999;
 }

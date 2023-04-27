@@ -439,11 +439,10 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseup", (e) => {
   mousepressed = false;
   if (dragging) {
-  prev_pos_y = prev_pos_y + (e.clientY - init_pos_y);
-  prev_pos_x = prev_pos_x + (e.clientX - init_pos_x);
+    prev_pos_y = prev_pos_y + (e.clientY - init_pos_y);
+    prev_pos_x = prev_pos_x + (e.clientX - init_pos_x);
   }
   dragging = false;
-
 });
 
 document.addEventListener("mouseover", (e) => {
