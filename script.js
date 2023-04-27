@@ -485,8 +485,20 @@ number_inputs.forEach((input) =>
 THEMES.forEach(theme =>{
   theme.addEventListener("click", (e) => {
     console.log(e.target);
-
     if (e.currentTarget == THEMES[0])
+    {
+      for (i=0;i<cellules_array.length;i++) {
+        if (cellules_array[i].classList.contains("alive_humus")){
+          cellules_array[i].classList.replace("alive_humus", "alive");
+        }
+        else if (cellules_array[i].classList.contains("dead_humus")){
+          cellules_array[i].classList.replace("dead_humus", "dead");
+        }
+      }
+     theme_class_alive = "alive";
+     theme_class_dead = "dead";
+      }
+    else if (e.currentTarget == THEMES[1])
     {
       for (i=0;i<cellules_array.length;i++) {
         if (cellules_array[i].classList.contains("alive")){
