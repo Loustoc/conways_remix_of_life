@@ -47,7 +47,6 @@ MINSURRALIVE.value = min_surr_alive;
 MAXSURRALIVE.value = max_surr_alive;
 SURRDEAD.value = surr_dead;
 
-
 let cellules_array = [];
 
 const cellsInArray = () => {
@@ -82,19 +81,17 @@ const init = () => {
 };
 
 const redefineValues = () => {
- 
-    NO_COLONNES = INPUT_COLONNES.valueAsNumber;
-    NO_LIGNES = INPUT_LIGNES.valueAsNumber;
-    NB_ALIVE_INIT = INPUT_NBCELLS.valueAsNumber;
-    NB_CELL = NO_COLONNES * NO_LIGNES;
-    console.log(NO_LIGNES);
-    console.log(NO_COLONNES);
-    console.log(NB_ALIVE_INIT);
-    min_surr_alive = MINSURRALIVE.valueAsNumber;
-    max_surr_alive = MAXSURRALIVE.valueAsNumber;
-    surr_dead = SURRDEAD.valueAsNumber;
-    init();
-  
+  NO_COLONNES = INPUT_COLONNES.valueAsNumber;
+  NO_LIGNES = INPUT_LIGNES.valueAsNumber;
+  NB_ALIVE_INIT = INPUT_NBCELLS.valueAsNumber;
+  NB_CELL = NO_COLONNES * NO_LIGNES;
+  console.log(NO_LIGNES);
+  console.log(NO_COLONNES);
+  console.log(NB_ALIVE_INIT);
+  min_surr_alive = MINSURRALIVE.valueAsNumber;
+  max_surr_alive = MAXSURRALIVE.valueAsNumber;
+  surr_dead = SURRDEAD.valueAsNumber;
+  init();
 };
 
 function getRandomInt(min, max) {
@@ -209,7 +206,10 @@ const check_surrounding_cells = () => {
       }
     }
 
-    if (SURROUNDING_CELLS.length < min_surr_alive || SURROUNDING_CELLS.length > max_surr_alive) {
+    if (
+      SURROUNDING_CELLS.length < min_surr_alive ||
+      SURROUNDING_CELLS.length > max_surr_alive
+    ) {
       console.log("entourant " + SURROUNDING_CELLS);
       // console.log(SURROUNDING_CELLS.length);
       console.log(ALIVE[i] + " cellule tuée");
@@ -411,17 +411,27 @@ document.addEventListener("mouseup", (e) => {
 });
 
 document.addEventListener("mouseover", (e) => {
-  if (mousepressed){
+  if (mousepressed) {
     handleCellClick(e);
   }
 });
 
-number_inputs.forEach(input => input.addEventListener("input", ()=>{
-   redefineValues();
-
-}));
-
-
+number_inputs.forEach((input) =>
+  input.addEventListener("input", () => {
+    if (input.parentElement.parentElement.classList.contains("regles")) {
+      console.log('oui');
+      let min = input.min;
+      let max = input.max;
+      let value = input.valueAsNumber;
+      if (value > max) {
+        input.value = min;
+      } else if (value < min) {
+        input.value = max;
+      }
+    }
+    redefineValues();
+  })
+);
 
 /*
 - chaque case qui a moins de 2 voisins vivants meurt
