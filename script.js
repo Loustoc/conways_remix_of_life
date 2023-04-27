@@ -29,6 +29,7 @@ let ALIVE = [];
 let SURROUNDING_CELLS = [];
 let alive_check = false;
 let dead_check = false;
+const number_inputs = document.querySelectorAll('input[type="number"]');
 const INPUT_COLONNES = document.getElementById("nbcolonnes");
 const INPUT_LIGNES = document.getElementById("nblignes");
 const RANGE = document.getElementById("range");
@@ -414,6 +415,13 @@ document.addEventListener("mouseover", (e) => {
     handleCellClick(e);
   }
 });
+
+number_inputs.forEach(input => input.addEventListener("input", ()=>{
+   redefineValues();
+
+}));
+
+
 
 /*
 - chaque case qui a moins de 2 voisins vivants meurt
