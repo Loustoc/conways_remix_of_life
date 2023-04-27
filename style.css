@@ -94,4 +94,5 @@ body {
 }
 .button {
   margin: 5px;
+  cursor: default;
 }
