@@ -26,14 +26,20 @@ body{
 } */
 
 /* V2 */
-
+.alive_humus{
+  background-color: pink;
+}
+.dead_humus{
+  background-color: rgb(117, 60, 20);
+}
 .cellule {
-  background-color: rgb(255, 255, 255);
   border: 0.1px black solid;
   width: calc(600px / 40);
   height: calc(450px / 30);
   border-radius: 0;
   display: inline-block;
+  mask:inherit; 
+  background-clip: content-box;
   box-sizing: border-box;
 }
 
@@ -48,7 +54,10 @@ body {
   padding: 0;
   overflow: scroll;
 }
+
+
 .container {
+  mask-composite: subtract;
   position: absolute;
   top: 0;
   transform: translate(calc(50vw - 50%), calc(50vh - 50%));
@@ -95,4 +104,12 @@ body {
 .button {
   margin: 5px;
   cursor: default;
+}
+.theme img{
+  width: 50px;
+}
+.themes{
+  position: fixed;
+  top: 10px;
+  left: 10px;
 }

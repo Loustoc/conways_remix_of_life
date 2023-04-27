@@ -8,7 +8,8 @@ let init_pos_y;
 let curr_pos_x;
 let prev_pos_x = 0;
 let prev_pos_y = 0;
-
+let theme_class_dead = "dead";
+let theme_class_alive = "alive";
 let dragging = false;
 let curr_pos_y;
 let random;
@@ -39,6 +40,7 @@ let SURROUNDING_CELLS = [];
 let alive_check = false;
 let dead_check = false;
 const number_inputs = document.querySelectorAll('input[type="number"]');
+const THEMES = document.querySelectorAll(".theme");
 const INPUT_COLONNES = document.getElementById("nbcolonnes");
 const INPUT_LIGNES = document.getElementById("nblignes");
 const RANGE = document.getElementById("range");
@@ -82,6 +84,7 @@ const init = () => {
       let cellule_col = document.createElement("div");
       ligne.appendChild(cellule_col);
       cellule_col.classList.add("cellule");
+      cellule_col.classList.add(theme_class_dead);
       cellule_col.dataset.index = i + k * NO_COLONNES;
       DEAD.push(Number(cellule_col.dataset.index));
     }
@@ -116,9 +119,13 @@ function getRandomInt(min, max) {
 
 const randomInit = () => {
   for (let i = 0; i < ALIVE.length; i++) {
-    cellules_array[ALIVE[i]].classList.remove("alive");
+    cellules_array[ALIVE[i]].classList.remove(theme_class_alive);
+    
   }
-
+  for (let i = 0; i < DEAD.length; i++) {
+    cellules_array[DEAD[i]].classList.remove(theme_class_dead);
+    
+  }
   ALIVE.length = 0;
   DEAD.length = 0;
 
@@ -129,13 +136,13 @@ const randomInit = () => {
 
   for (let i = 0; i < NB_CELL; i++) {
     if (!ALIVE.includes(i)) {
-      console.log("test");
       DEAD.push(i);
+      cellules_array[i].classList.add(theme_class_dead);
     }
   }
 
   for (let i = 0; i < ALIVE.length; i++) {
-    cellules_array[ALIVE[i]].classList.add("alive");
+    cellules_array[ALIVE[i]].classList.add(theme_class_alive);
   }
 };
 
@@ -323,7 +330,9 @@ const check_surrounding_cells = () => {
         console.log("remove");
         ALIVE.splice(i, 1);
         DEAD.push(TOREMOVE[j]);
-        cellules_array[TOREMOVE[j]].classList.remove("alive");
+        cellules_array[TOREMOVE[j]].classList.remove(theme_class_alive);
+        cellules_array[TOREMOVE[j]].classList.add(theme_class_dead);
+
       }
     }
   }
@@ -332,7 +341,8 @@ const check_surrounding_cells = () => {
       if (DEAD[i] == TOADD[j]) {
         DEAD.splice(i, 1);
         ALIVE.push(TOADD[j]);
-        cellules_array[TOADD[j]].classList.add("alive");
+        cellules_array[TOADD[j]].classList.remove(theme_class_dead);
+        cellules_array[TOADD[j]].classList.add(theme_class_alive);
       }
     }
   }
@@ -365,11 +375,14 @@ const game_start = () => {
 
 const handleCellClick = (e) => {
   if (e.target.classList.contains("cellule")) {
-    if (e.target.classList.contains("alive")) {
+    if (e.target.classList.contains(theme_class_alive)) {
       for (i = 0; i < ALIVE.length; i++) {
         if (ALIVE[i] == e.target.dataset.index) {
           ALIVE.splice(i, 1);
           DEAD.push(Number(e.target.dataset.index));
+          e.target.classList.remove(theme_class_alive);
+          e.target.classList.add(theme_class_dead);
+
         }
       }
     } else {
@@ -377,10 +390,12 @@ const handleCellClick = (e) => {
         if (DEAD[i] == e.target.dataset.index) {
           DEAD.splice(i, 1);
           ALIVE.push(Number(e.target.dataset.index));
+          e.target.classList.remove(theme_class_dead);
+          e.target.classList.add(theme_class_alive);
+
         }
       }
     }
-    e.target.classList.toggle("alive");
   }
 };
 
@@ -467,7 +482,25 @@ number_inputs.forEach((input) =>
     redefineValues();
   })
 );
+THEMES.forEach(theme =>{
+  theme.addEventListener("click", (e) => {
+    console.log(e.target);
 
+    if (e.currentTarget == THEMES[0])
+    {
+      for (i=0;i<cellules_array.length;i++) {
+        if (cellules_array[i].classList.contains("alive")){
+          cellules_array[i].classList.replace("alive", "alive_humus");
+        }
+        else if (cellules_array[i].classList.contains("dead")){
+          cellules_array[i].classList.replace("dead", "dead_humus");
+        }
+      }
+     theme_class_alive = "alive_humus";
+     theme_class_dead = "dead_humus";
+      }
+    })
+  })
 /*
 - chaque case qui a moins de 2 voisins vivants meurt
 - chaque case qui a 2 ou 3 voisins vivants survit
