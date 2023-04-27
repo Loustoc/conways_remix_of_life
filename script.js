@@ -3,6 +3,14 @@ let NO_COLONNES = 40;
 let NO_LIGNES = 30;
 let NB_ALIVE_INIT = 400;
 let DELAY = 100; // milliseconds
+let init_pos_x;
+let init_pos_y;
+let curr_pos_x;
+let prev_pos_x = 0;
+let prev_pos_y = 0;
+
+let dragging = false;
+let curr_pos_y;
 let random;
 let min_surr_alive = 2;
 let max_surr_alive = 3;
@@ -19,6 +27,7 @@ let right_ok = false;
 let left_ok = false;
 let NB_CELL = NO_COLONNES * NO_LIGNES;
 const container = document.querySelector(".container");
+const controls = document.querySelector(".controls");
 let game_started = false;
 let DEAD = [];
 let PREV1 = [];
@@ -404,14 +413,41 @@ document.addEventListener("click", (e) => {
   handleCellClick(e);
 });
 document.addEventListener("mousedown", (e) => {
+  console.log("test");
   mousepressed = true;
+  if (e.target == controls) {
+    dragging = true;
+    init_pos_x = e.clientX;
+    init_pos_y = e.clientY;
+  }
+});
+
+document.addEventListener("mousemove", (e) => {
+  // console.log(e);
+  curr_pos_x = e.clientX;
+  curr_pos_y = e.clientY;
+  if (dragging) {
+    console.log("dragging");
+    let deltaX = curr_pos_x - init_pos_x;
+    let deltaY = curr_pos_y - init_pos_y;
+    console.log(deltaX, deltaY);
+    controls.style.transform = `translate(calc(50vw - 50% + ${
+      prev_pos_x + deltaX
+    }px),${prev_pos_y + deltaY}px)`;
+  }
 });
 document.addEventListener("mouseup", (e) => {
   mousepressed = false;
+  if (dragging) {
+  prev_pos_y = prev_pos_y + (e.clientY - init_pos_y);
+  prev_pos_x = prev_pos_x + (e.clientX - init_pos_x);
+  }
+  dragging = false;
+
 });
 
 document.addEventListener("mouseover", (e) => {
-  if (mousepressed) {
+  if (mousepressed && !dragging) {
     handleCellClick(e);
   }
 });
@@ -419,7 +455,7 @@ document.addEventListener("mouseover", (e) => {
 number_inputs.forEach((input) =>
   input.addEventListener("input", () => {
     if (input.parentElement.parentElement.classList.contains("regles")) {
-      console.log('oui');
+      console.log("oui");
       let min = input.min;
       let max = input.max;
       let value = input.valueAsNumber;
