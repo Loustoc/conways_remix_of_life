@@ -26,10 +26,23 @@ body{
 } */
 
 /* V2 */
-.alive_humus{
+.alive_rainforest{
+background-color: #F4068F
+}
+.dead_rainforest{
+  background-color: #009640;
+}
+.alive_sea {
+  background-color: #e23d23;
+}
+.dead_sea {
+  background-color: #2ab0e6;
+}
+
+.alive_humus {
   background-color: pink;
 }
-.dead_humus{
+.dead_humus {
   background-color: rgb(117, 60, 20);
 }
 .cellule {
@@ -38,7 +51,7 @@ body{
   height: calc(450px / 30);
   border-radius: 0;
   display: inline-block;
-  mask:inherit; 
+  mask: inherit;
   background-clip: content-box;
   box-sizing: border-box;
 }
@@ -54,7 +67,6 @@ body {
   padding: 0;
   overflow: scroll;
 }
-
 
 .container {
   mask-composite: subtract;
@@ -75,8 +87,8 @@ body {
 }
 .controls {
   transform: translate(calc(50vw - 50%));
-  border: 3px  black dashed;
-  cursor : grab;
+  border: 3px black dashed;
+  cursor: grab;
   justify-content: center;
   align-items: center;
   padding: 5px 20px;
@@ -105,10 +117,10 @@ body {
   margin: 5px;
   cursor: default;
 }
-.theme img{
+.theme img {
   width: 50px;
 }
-.themes{
+.themes {
   position: fixed;
   top: 10px;
   left: 10px;

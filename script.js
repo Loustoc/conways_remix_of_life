@@ -511,6 +511,32 @@ THEMES.forEach(theme =>{
      theme_class_alive = "alive_humus";
      theme_class_dead = "dead_humus";
       }
+      else if (e.currentTarget == THEMES[2])
+    {
+      for (i=0;i<cellules_array.length;i++) {
+        if (cellules_array[i].classList[1].includes("alive") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"alive_sea"); 
+        }
+        else if (cellules_array[i].classList[1].includes("dead") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"dead_sea"); 
+        }
+      }
+     theme_class_alive = "alive_sea";
+     theme_class_dead = "dead_sea";
+      }
+      else if (e.currentTarget == THEMES[3])
+    {
+      for (i=0;i<cellules_array.length;i++) {
+        if (cellules_array[i].classList[1].includes("alive") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"alive_rainforest"); 
+        }
+        else if (cellules_array[i].classList[1].includes("dead") ){
+          cellules_array[i].classList.replace(cellules_array[i].classList[1],"dead_rainforest"); 
+        }
+      }
+     theme_class_alive = "alive_rainforest";
+     theme_class_dead = "dead_rainforest";
+      }
     })
   })
 /*

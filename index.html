@@ -9,9 +9,10 @@
   </head>
   <body>
     <div class="themes">
-      <div class="theme"><img src="default.svg" alt=""></div>
-      <div class="theme"><img src="humus_theme.svg" alt=""></div>
-      <div class="theme"></div>
+      <div class="theme"><img src="default.svg" alt="" /></div>
+      <div class="theme"><img src="humus_theme.svg" alt="" /></div>
+      <div class="theme"><img src="sea_theme.svg" alt="" /></div>
+      <div class="theme"><img src="rainforest_theme.svg" alt="" /></div>
     </div>
     <div class="controls">
       <input id="range" type="range" />
@@ -48,19 +49,21 @@
           placeholder="Nb de cells en vie au départ"
           type="text"
         />
-      
       </div>
       <ul class="regles">
         <li>
           chaque case qui a moins de
-          <input id="min_surr_alive" min="1" max="6" type="number" /> voisins vivants meurt
+          <input id="min_surr_alive" min="1" max="6" type="number" /> voisins
+          vivants meurt
         </li>
         <li>
-          si plus de <input id="max_surr_alive" min="1" max="7" type="number" /> voisins vivants,
-          décède
+          si plus de
+          <input id="max_surr_alive" min="1" max="7" type="number" /> voisins
+          vivants, décède
         </li>
         <li>
-          si *exactement* <input id="surr_dead" min="1" max="7" type="number" /> voisins à
+          si *exactement*
+          <input id="surr_dead" min="1" max="7" type="number" /> voisins à
           cellule morte : ressuscite
         </li>
       </ul>
