@@ -24,9 +24,20 @@
         <img onclick="effacer()" class="button stop" src="/img/restart.svg" />
       </div>
       <div class="resize_controls">
-        <input type="number" id="nbcolonnes" placeholder="Nombre de colonnes" />
-        <input type="number" id="nblignes" placeholder="Nombre de lignes" />
         <input
+          min="1"
+          type="number"
+          id="nbcolonnes"
+          placeholder="Nombre de colonnes"
+        />
+        <input
+          min="1"
+          type="number"
+          id="nblignes"
+          placeholder="Nombre de lignes"
+        />
+        <input
+          min="1"
           type="number"
           id="nbcellsinit"
           placeholder="Nb de cells en vie au départ"
@@ -34,6 +45,20 @@
         />
         <button onclick="redefineValues()" id="valider">VALIDER</button>
       </div>
+      <ul class="regles">
+        <li>
+          chaque case qui a moins de
+          <input id="min_surr_alive" min="1" max="6" type="number" /> voisins vivants meurt
+        </li>
+        <li>
+          si plus de <input id="max_surr_alive" min="1" max="7" type="number" /> voisins vivants,
+          décède
+        </li>
+        <li>
+          si *exactement* <input id="surr_dead" min="1" max="7" type="number" /> voisins à
+          cellule morte : ressuscite
+        </li>
+      </ul>
     </div>
 
     <div class="container"></div>

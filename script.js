@@ -4,6 +4,9 @@ let NO_LIGNES = 30;
 let NB_ALIVE_INIT = 400;
 let DELAY = 100; // milliseconds
 let random;
+let min_surr_alive = 2;
+let max_surr_alive = 3;
+let surr_dead = 3;
 let top_ok = false;
 let offset_top_ok = false;
 let offset_left_ok = false;
@@ -16,8 +19,6 @@ let right_ok = false;
 let left_ok = false;
 let NB_CELL = NO_COLONNES * NO_LIGNES;
 const container = document.querySelector(".container");
-// const TABX = [];
-// const TABY = [];
 let game_started = false;
 let DEAD = [];
 let PREV1 = [];
@@ -32,11 +33,19 @@ const INPUT_COLONNES = document.getElementById("nbcolonnes");
 const INPUT_LIGNES = document.getElementById("nblignes");
 const RANGE = document.getElementById("range");
 const INPUT_NBCELLS = document.getElementById("nbcellsinit");
+const MAXSURRALIVE = document.getElementById("max_surr_alive");
+const MINSURRALIVE = document.getElementById("min_surr_alive");
+const SURRDEAD = document.getElementById("surr_dead");
+
 const vitesse = document.querySelectorAll(".vitesse");
 
 INPUT_COLONNES.value = NO_COLONNES;
 INPUT_NBCELLS.value = NB_ALIVE_INIT;
 INPUT_LIGNES.value = NO_LIGNES;
+MINSURRALIVE.value = min_surr_alive;
+MAXSURRALIVE.value = max_surr_alive;
+SURRDEAD.value = surr_dead;
+
 
 let cellules_array = [];
 
@@ -72,7 +81,7 @@ const init = () => {
 };
 
 const redefineValues = () => {
-  if (INPUT_COLONNES != 0 && INPUT_LIGNES != 0 && INPUT_NBCELLS != 0) {
+ 
     NO_COLONNES = INPUT_COLONNES.valueAsNumber;
     NO_LIGNES = INPUT_LIGNES.valueAsNumber;
     NB_ALIVE_INIT = INPUT_NBCELLS.valueAsNumber;
@@ -80,9 +89,11 @@ const redefineValues = () => {
     console.log(NO_LIGNES);
     console.log(NO_COLONNES);
     console.log(NB_ALIVE_INIT);
-
+    min_surr_alive = MINSURRALIVE.valueAsNumber;
+    max_surr_alive = MAXSURRALIVE.valueAsNumber;
+    surr_dead = SURRDEAD.valueAsNumber;
     init();
-  }
+  
 };
 
 function getRandomInt(min, max) {
@@ -197,7 +208,7 @@ const check_surrounding_cells = () => {
       }
     }
 
-    if (SURROUNDING_CELLS.length < 2 || SURROUNDING_CELLS.length > 3) {
+    if (SURROUNDING_CELLS.length < min_surr_alive || SURROUNDING_CELLS.length > max_surr_alive) {
       console.log("entourant " + SURROUNDING_CELLS);
       // console.log(SURROUNDING_CELLS.length);
       console.log(ALIVE[i] + " cellule tuée");
@@ -288,7 +299,7 @@ const check_surrounding_cells = () => {
       }
     }
 
-    if (SURROUNDING_CELLS.length == 3) {
+    if (SURROUNDING_CELLS.length == surr_dead) {
       // cellules_array[DEAD[i]].classList.add("alive");
       TOADD.push(DEAD[i]);
     }
